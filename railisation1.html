@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+
+const competences = [
+    { code: "C1", libelle: "Maquetter une application" },
+    { code: "C2", libelle: "Réaliser une interface utilisateur web statique et adaptable" },
+    { code: "C3", libelle: "Développer une interface utilisateur web dynamique" },
+    { code: "C4", libelle: "Réaliser une interface utilisateur avec un CMS ou e-commerce" },
+    { code: "C5", libelle: "Créer une base de données - niveau 1" },
+    { code: "C6", libelle: "Développer les composants d’accès aux données - niveau 1" },
+    { code: "C7", libelle: "Développer la partie back-end d’une application web ou web mobile - niveau 1" },
+    { code: "C8", libelle: "Framework FrontEnd (React, VueJS...)" }
+];
+
+let score = 0;
+
+for (let i = 0; i < competences.length; i++) {
+    let indexAleatoire = Math.floor(Math.random() * competences.length);
+    let competence = competences[indexAleatoire];
+
+    let reponse = prompt(`Question ${i+1}:\n"${competence.libelle}"\nQuel est le code ? (C1-C8)`);
+
+    if (reponse && reponse.trim().toUpperCase() === competence.code) {
+        alert("✅ Correct !");
+        score++;
+    } else {
+        alert(`❌ Incorrect ! La bonne réponse était ${competence.code}`);
+        score--;
+    }
+
+    alert(`Score actuel : ${score}`);
+}
+
+alert(`🎉 Jeu terminé ! Score final : ${score} sur ${competences.length}`);
+
+
+    </script>
+</body>
+</html>
