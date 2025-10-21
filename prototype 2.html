@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <li><input type="checkbox" id="items1">les revision</li>
+<li><input type="checkbox" id="items2">laerning</li>
+<li><input type="checkbox" id="items3">sport</li>
+<li><input type="checkbox" id="items4">motivation</li>
+<p>element coches:<span id='conteur'>0<span></p>
+
+    <script>
+let items1=document.getElementById('items1')
+let items2=document.getElementById('items2')
+let items3=document.getElementById('items3')
+let items4=document.getElementById('items4')
+let conteur=document.getElementById('conteur')
+function calculertotal(){
+    let total=0
+    if (items1.checked) total++;
+     if (items2.checked) total++;
+     if (items3.checked) total++;
+   if (items4.checked) total++;
+   conteur.innerText =total
+
+}
+
+items1.addEventListener('change',calculertotal)
+items2.addEventListener('change',calculertotal)
+items3.addEventListener('change',calculertotal)
+items4.addEventListener('change',calculertotal)
+
+
+    </script>
+</body>
+</html>
