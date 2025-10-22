@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des tâches</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    li { margin: 5px 0; }
+    button { margin-left: 10px; }
+  </style>
+</head>
+<body>
+
+<h2>Mes Tâches</h2>
+
+<input type="text" id="nouvelleTache" placeholder="Nouvelle tâche">
+<button id="ajouterBtn">Ajouter</button>
+<button id="viderBtn">Vider Tout</button>
+
+<ul id="listeTaches"></ul>
+<p>Nombre de tâches cochées: <span id="conteur">0</span></p>
+
+<script>
+const input = document.getElementById('nouvelleTache');
+const ajouterBtn = document.getElementById('ajouterBtn');
+const viderBtn = document.getElementById('viderBtn');
+const liste = document.getElementById('listeTaches');
+const conteur = document.getElementById('conteur');
+let taches = JSON.parse(localStorage.getItem('taches')) || [];
+
+
+function afficherTaches() {
+  liste.innerHTML = '';
+  let totalCoches = 0;
+
+  taches.forEach((tache, index) => {
+    const li = document.createElement('li');
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = tache.fait;
+    checkbox.addEventListener('change', () => {
+      taches[index].fait = checkbox.checked;
+      sauvegarderTaches();
+      afficherTaches();
+    });
+
+    const texte = document.createTextNode(' ' + tache.nom);
+
+    const btnSupprimer = document.createElement('button');
+    btnSupprimer.textContent = 'Supprimer';
+    btnSupprimer.addEventListener('click', () => {
+      taches.splice(index, 1);
+      sauvegarderTaches();
+      afficherTaches();
+    });
+
+    li.appendChild(checkbox);
+    li.appendChild(texte);
+    li.appendChild(btnSupprimer);
+    liste.appendChild(li);
+
+    if (tache.fait) totalCoches++;
+  });
+
+  conteur.innerText = totalCoches;
+}
+
+
+function sauvegarderTaches() {
+  localStorage.setItem('taches', JSON.stringify(taches));
+}
+
+
+ajouterBtn.addEventListener('click', () => {
+  const nomTache = input.value.trim();
+  if (nomTache !== '') {
+    taches.push({ nom: nomTache, fait: false });
+    input.value = '';
+    sauvegarderTaches();
+    afficherTaches();
+  }
+});
+
+
+viderBtn.addEventListener('click', () => {
+  taches = [];
+  sauvegarderTaches();
+  afficherTaches();
+});
+
+
+afficherTaches();
+</script>
+
+</body>
+</html>
